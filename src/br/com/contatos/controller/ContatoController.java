@@ -20,7 +20,7 @@ public class ContatoController implements Initializable {
 	@FXML TextField txtTelefone;
 	@FXML Button btnInserir;
 	@FXML ListView lstContatos;
-	
+
 
 	private void preencherLista(){
 
@@ -80,9 +80,10 @@ public class ContatoController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+
+		//metodo para prencher a lista
 		preencherLista();
 	}
-
 
 
 }
