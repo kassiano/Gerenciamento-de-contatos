@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.contatos.controller.ContatoController">
+<AnchorPane prefHeight="500.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.contatos.controller.ContatoController">
    <children>
       <Label layoutX="112.0" layoutY="29.0" text="Contatos">
          <font>
@@ -18,6 +18,8 @@
       <Label layoutX="52.0" layoutY="88.0" text="Nome" />
       <Label layoutX="52.0" layoutY="128.0" text="Telefone" />
       <Button fx:id="btnInserir" layoutX="112.0" layoutY="166.0" mnemonicParsing="false" onAction="#inserirContato" text="inserir" />
-      <ListView fx:id="lstContatos" layoutX="50.0" layoutY="200.0" prefHeight="200.0" prefWidth="221.0" />
+      <ListView fx:id="lstContatos" layoutX="27.0" layoutY="200.0" prefHeight="200.0" prefWidth="244.0" />
+      <Button fx:id="btnAtualizar" layoutX="26.0" layoutY="413.0" mnemonicParsing="false" onAction="#atualizar" text="Atualizar" />
+      <Button fx:id="btnDeletar" layoutX="109.0" layoutY="413.0" mnemonicParsing="false" onAction="#deletar" text="Deletar" />
    </children>
 </AnchorPane>

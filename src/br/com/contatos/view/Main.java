@@ -26,7 +26,6 @@ public class Main extends Application {
 		//Scene - o conteudo da tela
 		//FXML
 
-
 	}
 
 	public static void main(String[] args) {
