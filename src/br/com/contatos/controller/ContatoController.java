@@ -62,54 +62,39 @@ public class ContatoController implements Initializable {
 
 	@FXML public void inserirContato() {
 
-		Connection con = MySqlConnect.ConectarDb();
 
 		if(!modoEdicao){
 			//inserir novo contato
 
+			Contato novo = new Contato();
+			novo.setNome( txtNome.getText());
+			novo.setTelefone(txtTelefone.getText());
 
-			String sql ="insert into contact (name, phone) values( ?, ?);";
+			boolean sucesso = Contato.inserir(novo);
 
-			PreparedStatement parametros;
-
-			try {
-				parametros = con.prepareStatement(sql);
-				parametros.setString(1, txtNome.getText());
-				parametros.setString(2, txtTelefone.getText());
-
-				parametros.executeUpdate();
-				con.close();
-
+			if(sucesso){
 				Alerta.showInformation("sucesso", "Inserido com sucesso");
 				limpar();
-
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			}else{
+				Alerta.showError("Erro", "Ocorreu um erro, tente novamente.");
 			}
-
 
 		}else{
 			//editar contato
-			String sql ="update contact set name =?, phone=? where id = ?;";
 
-			PreparedStatement parametros;
+			Contato atualizado = new Contato();
+			atualizado.setNome( txtNome.getText());
+			atualizado.setTelefone(txtTelefone.getText());
+			atualizado.setId(itemSelecionado.getId());
 
-			try {
-				parametros = con.prepareStatement(sql);
-				parametros.setString(1, txtNome.getText());
-				parametros.setString(2, txtTelefone.getText());
-				parametros.setInt(3, itemSelecionado.getId());
-				parametros.executeUpdate();
-				con.close();
+			boolean sucesso = Contato.atualizar(atualizado);
 
-				Alerta.showInformation("sucesso", "Atualizado com sucesso");
+			if(sucesso){
+				Alerta.showInformation("Sucesso", "Atualizado com sucesso");
 				limpar();
-				modoEdicao= false;
-				btnInserir.setText("Inserir");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				modoEdicao=false;
+			}else{
+				Alerta.showError("Erro", "Ocorreu um erro, tente novamente.");
 			}
 
 		}
