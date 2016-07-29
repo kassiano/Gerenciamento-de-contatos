@@ -14,7 +14,7 @@ public class MySqlConnect {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			con = DriverManager
-					.getConnection("jdbc:mysql://10.107.144.4/contatos", "root", "root");
+					.getConnection("jdbc:mysql://10.107.134.52/contatos", "root", "root");
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

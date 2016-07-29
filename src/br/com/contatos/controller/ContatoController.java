@@ -41,9 +41,6 @@ public class ContatoController implements Initializable {
 
 			while(rs.next()){
 
-				String nome = rs.getString("name");
-				String telefone = rs.getString("phone");
-
 				Contato c = new Contato();
 				c.setNome(rs.getString("name"));
 				c.setTelefone(rs.getString("phone"));
@@ -100,8 +97,8 @@ public class ContatoController implements Initializable {
 
 			try {
 				parametros = con.prepareStatement(sql);
-				parametros.setString(1, itemSelecionado.getNome());
-				parametros.setString(2, itemSelecionado.getTelefone());
+				parametros.setString(1, txtNome.getText());
+				parametros.setString(2, txtTelefone.getText());
 				parametros.setInt(3, itemSelecionado.getId());
 				parametros.executeUpdate();
 				con.close();
@@ -109,6 +106,7 @@ public class ContatoController implements Initializable {
 				Alerta.showInformation("sucesso", "Atualizado com sucesso");
 				limpar();
 				modoEdicao= false;
+				btnInserir.setText("Inserir");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
