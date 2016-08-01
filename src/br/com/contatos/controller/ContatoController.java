@@ -13,8 +13,6 @@ import br.com.contatos.model.Contato;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
@@ -56,8 +54,6 @@ public class ContatoController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-
 	}
 
 	@FXML public void inserirContato() {
@@ -65,38 +61,60 @@ public class ContatoController implements Initializable {
 
 		if(!modoEdicao){
 			//inserir novo contato
+			
+			Connection con = MySqlConnect.ConectarDb();
 
-			Contato novo = new Contato();
-			novo.setNome( txtNome.getText());
-			novo.setTelefone(txtTelefone.getText());
+			String sql ="insert into contact (name, phone) values( ?, ?);";
 
-			boolean sucesso = Contato.inserir(novo);
+			PreparedStatement parametros;
 
-			if(sucesso){
+			try {
+				parametros = con.prepareStatement(sql);
+				parametros.setString(1, txtNome.getText());
+				parametros.setString(2, txtTelefone.getText());
+
+				parametros.executeUpdate();
+				con.close();
+				
+				
 				Alerta.showInformation("sucesso", "Inserido com sucesso");
 				limpar();
-			}else{
+				
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 				Alerta.showError("Erro", "Ocorreu um erro, tente novamente.");
+			
 			}
+			
 
 		}else{
-			//editar contato
+			//editar contato					
+			Connection con = MySqlConnect.ConectarDb();
 
-			Contato atualizado = new Contato();
-			atualizado.setNome( txtNome.getText());
-			atualizado.setTelefone(txtTelefone.getText());
-			atualizado.setId(itemSelecionado.getId());
+			String sql ="update contact set name =?, phone=? where id = ?;";
 
-			boolean sucesso = Contato.atualizar(atualizado);
+			PreparedStatement parametros;
 
-			if(sucesso){
+			try {
+				parametros = con.prepareStatement(sql);
+				parametros.setString(1, txtNome.getText() );
+				parametros.setString(2, txtTelefone.getText() );
+				parametros.setInt(3, itemSelecionado.getId());
+				parametros.executeUpdate();
+				con.close();
+
 				Alerta.showInformation("Sucesso", "Atualizado com sucesso");
 				limpar();
 				modoEdicao=false;
-			}else{
+				
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 				Alerta.showError("Erro", "Ocorreu um erro, tente novamente.");
 			}
-
 		}
 
 		preencherLista();
@@ -155,8 +173,5 @@ public class ContatoController implements Initializable {
 
 		preencherLista();
 	}
-
-
-
 
 }
